@@ -33,4 +33,11 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('/admin/hsncode', 'HsncodeController');
     Route::resource('/admin/brand', 'BrandController');
     Route::resource('/admin/category', 'CategoryController');
+    Route::resource('/admin/subcategory', 'SubcategoryController');
+    Route::resource('/admin/retailer', 'UserController')->only(['index']);
+    Route::resource('/admin/color', 'ColorController');
+    Route::resource('/admin/group-color', 'GroupcolorController');
+    Route::get('/admin/product/get-sub-category', 'ProductController@getSubcategory');
+    Route::resource('/admin/product', 'ProductController');
+
 });

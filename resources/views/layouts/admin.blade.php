@@ -119,6 +119,8 @@
     <script src="{{ asset('admin_styles/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js') }}"></script>
     <!-- Custom Theme Scripts -->
     <script src="{{ asset('admin_styles/build/js/custom.min.js') }}"></script>
+    <!-- jQuery Tags Input -->
+    <script src="{{ asset('admin_styles/vendors/jquery.tagsinput/src/jquery.tagsinput.js') }}"></script>
 
     @yield('scripts')
 

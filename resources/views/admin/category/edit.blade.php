@@ -25,7 +25,7 @@
                             {!! Form::open(array('url' => URL::to('admin/category/'.$record->id), 'method' => 'PUT', 'class'=>"form-horizontal form-label-left",'id'=>'frmEditCategory','files'=> true,'autocomplete'=>false)) !!}
 
                             <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">HSN Code <span class="required">*</span>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <input type="text" id="title" name="title" value="{{ $record->title }}" class="form-control col-md-7 col-xs-12">

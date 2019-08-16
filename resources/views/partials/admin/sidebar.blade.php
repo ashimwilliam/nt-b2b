@@ -8,12 +8,20 @@
                 </ul>
             </li>
 
+            <li><a><i class="fa fa-users"></i> Retailer <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ URL::to('/admin/retailer') }}">Retailers</a></li>
+                </ul>
+            </li>
+
             <li><a><i class="fa fa-cubes"></i> Products <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="{{ URL::to('/admin/brand') }}">Brands</a></li>
                     <li><a href="{{ URL::to('/admin/category') }}">Categories</a></li>
-                    <li><a href="#">Sub Categories</a></li>
-                    <li><a href="#">Products</a></li>
+                    <li><a href="{{ URL::to('/admin/subcategory') }}">Sub Categories</a></li>
+                    <li><a href="{{ URL::to('/admin/color') }}">Color</a></li>
+                    <li><a href="{{ URL::to('/admin/group-color') }}">Group Color</a></li>
+                    <li><a href="{{ URL::to('/admin/product') }}">Products</a></li>
                 </ul>
             </li>
 
