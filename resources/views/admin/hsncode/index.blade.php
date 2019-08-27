@@ -35,8 +35,8 @@
                                     </thead>
 
                                     <tbody>
-                                    @if($records)
-                                        @if($records && count($records) > 0)
+                                    @if($records && count($records) > 0)
+                                        @foreach($records as $item)
                                         <tr class="even pointer">
                                             <td class=" ">{{ $item->hsncode }}</td>
                                             <td class=" ">{{ $item->description }}</td>

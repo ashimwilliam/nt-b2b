@@ -39,7 +39,7 @@ class HsncodeController extends Controller
     public function store(Request $request)
     {
         $rules = array(
-            'hsncode' => 'required|unique:hsncode',
+            'hsncode' => 'required|unique:hsncodes',
             'wef_date' => 'required',
             'tax' => 'required',
             'status' => 'required',
@@ -57,7 +57,7 @@ class HsncodeController extends Controller
             $newRecord->description = $request->get('description');
             $newRecord->wef_date = $request->get('wef_date');
             $newRecord->tax = $request->get('tax');
-            $newRecord->additional_tax = $request->get('additional_tax');
+            $newRecord->additional_tax = $request->get('additional_tax') ? $request->get('additional_tax') : 0;
             $newRecord->status = $request->get('status');
             $newRecord->save();
 
@@ -119,7 +119,7 @@ class HsncodeController extends Controller
             $updRecord->description = $request->get('description');
             $updRecord->wef_date = $request->get('wef_date');
             $updRecord->tax = $request->get('tax');
-            $updRecord->additional_tax = $request->get('additional_tax');
+            $updRecord->additional_tax = $request->get('additional_tax') ? $request->get('additional_tax') : 0;
             $updRecord->status = $request->get('status');
             $updRecord->save();
 

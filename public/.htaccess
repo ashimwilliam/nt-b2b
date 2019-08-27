@@ -19,3 +19,6 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+php_value CURLOPT_IPRESOLVE 113
+php_value CURL_IPRESOLVE_V4 1

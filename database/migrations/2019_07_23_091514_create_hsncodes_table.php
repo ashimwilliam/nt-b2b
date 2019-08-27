@@ -19,7 +19,7 @@ class CreateHsncodesTable extends Migration
             $table->text('description')->nullable();
             $table->date('wef_date')->nullable();
             $table->smallInteger('tax')->default(0);
-            $table->smallInteger('additional_tax')->default(0);
+            $table->smallInteger('additional_tax')->default(0)->nullable();
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

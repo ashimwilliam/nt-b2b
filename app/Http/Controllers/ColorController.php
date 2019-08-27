@@ -116,7 +116,7 @@ class ColorController extends Controller
             $updRecord = Color::find($id);
             $updRecord->title = $request->get('title');
             $updRecord->description = $request->get('description');
-            if(!empty($request->get('shade_img')) && $request->get('shade_img') != 0) {
+            if($request->shade_img) {
                 $updRecord->shade_img = $this->uploadImage($request, 'color', 'shade_img', $oldImage, '1');
             }
             $updRecord->color_code = $request->get('color_code');

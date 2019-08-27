@@ -16,6 +16,7 @@
 
             <li><a><i class="fa fa-cubes"></i> Products <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
+		    <li><a href="{{ URL::to('/admin/hsncode') }}">HSN Code</a></li>	
                     <li><a href="{{ URL::to('/admin/brand') }}">Brands</a></li>
                     <li><a href="{{ URL::to('/admin/category') }}">Categories</a></li>
                     <li><a href="{{ URL::to('/admin/subcategory') }}">Sub Categories</a></li>
