@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Color;
+use App\Banner;
+use App\Product;
 use Illuminate\Http\Request;
 use Validator;
 use Session;
 use Illuminate\Support\Facades\File;
 
-class ColorController extends BaseController
+class BannerController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +18,8 @@ class ColorController extends BaseController
      */
     public function index()
     {
-        $records = Color::orderBy('id', 'DESC')->paginate(15);
-        return view('admin.color.index', compact('records'));
+        $records = Banner::orderBy('id', 'DESC')->paginate(15);
+        return view('admin.banner.index', compact('records'));
     }
 
     /**
@@ -28,7 +29,8 @@ class ColorController extends BaseController
      */
     public function create()
     {
-        return view('admin.color.create');
+        $products = Product::where('status', 1)->get();
+        return view('admin.banner.create', compact('products'));
     }
 
     /**
@@ -40,7 +42,7 @@ class ColorController extends BaseController
     public function store(Request $request)
     {
         $rules = array(
-            'title' => 'required|unique:colors',
+            'title' => 'required|unique:banners',
             'status' => 'required',
         );
 
@@ -51,28 +53,27 @@ class ColorController extends BaseController
                 ->withInput();
         }else{
             // store
-            $newRecord = new Color;
+            $newRecord = new Banner;
             $newRecord->title = $request->get('title');
             $newRecord->description = $request->get('description');
             //$browseField = $request->get('image');
-            $newRecord->shade_img = $this->uploadImage($request, 'color', 'shade_img', '', '');
-            $newRecord->color_code = $request->get('color_code');
+            $newRecord->image = $this->uploadImage($request, 'banner', 'image', '', '');
             $newRecord->status = $request->get('status');
             $newRecord->save();
 
             // redirect
             Session::flash('success', 'Successfully created the record!');
-            return redirect('admin/color');
+            return redirect('admin/banner');
         }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Color  $color
+     * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Banner $banner)
     {
         //
     }
@@ -80,62 +81,62 @@ class ColorController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Color  $color
+     * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $title = 'Color - Edit';
-        $record = Color::find($id);
+        $title = 'Banner - Edit';
+        $record = Banner::find($id);
+        $products = Product::where('status', 1)->get();
 
-        return view('admin.color.edit', compact('record', 'title'));
+        return view('admin.banner.edit', compact('record', 'title', 'products'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Color  $color
+     * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         $oldImage = $request->get('old_image');
         $rules = array(
-            'title' => 'required|unique:colors,title,'.$id,
+            'title' => 'required|unique:banners,title,'.$id,
             'status' => 'required',
         );
         $validator = Validator::make($request->all(), $rules);
 
         if($validator->fails()){
-            return redirect('admin/'.$id.'/color')
+            return redirect('admin/'.$id.'/banner')
                 ->withErrors($validator)
                 ->withInput();
         }else{
             // store
-            $updRecord = Color::find($id);
+            $updRecord = Banner::find($id);
             $updRecord->title = $request->get('title');
             $updRecord->description = $request->get('description');
-            if($request->shade_img) {
-                $updRecord->shade_img = $this->uploadImage($request, 'color', 'shade_img', $oldImage, '1');
+            if($request->image) {
+                $updRecord->shade_img = $this->uploadImage($request, 'banner', 'image', $oldImage, '1');
             }
-            $updRecord->color_code = $request->get('color_code');
             $updRecord->status = $request->get('status');
             $updRecord->save();
 
             // redirect
-            Session::flash('success', 'Successfully updated the color!');
-            return redirect('admin/color');
+            Session::flash('success', 'Successfully updated the banner!');
+            return redirect('admin/banner');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Color  $color
+     * @param  \App\Banner  $banner
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Color $color)
+    public function destroy(Banner $banner)
     {
         //
     }

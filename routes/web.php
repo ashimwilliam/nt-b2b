@@ -40,4 +40,8 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/product/get-sub-category', 'ProductController@getSubcategory');
     Route::resource('/admin/product', 'ProductController');
 
+    Route::get('/admin/product/bulk-upload', 'ProductController@getBulkUpload');
+    Route::post('/admin/product/bulk-upload', 'ProductController@postBulkUpload');
+
+    Route::resource('/admin/banner', 'BannerController');
 });

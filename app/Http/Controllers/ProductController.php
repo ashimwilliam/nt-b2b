@@ -289,4 +289,38 @@ class ProductController extends BaseController
             ]);
         }
     }
+
+    public function getBulkUpload(){
+        return view('admin.product.bulk_upload');
+    }
+
+    public function postBulkUpload(Request $request)
+    {
+        $rules = array(
+            'bulk_file' => 'required',
+            'bulk_file.*' => 'mimes:xlsx,xls',
+        );
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect('admin/product/bulk-upload')
+                ->withErrors($validator)
+                ->withInput();
+        } else {
+            $file = $request->file('bulk_file');
+            $onlyFileName = basename($file->getClientOriginalName(), '.' . $file->getClientOriginalExtension());
+
+            $fileName = time() . "." . $file->getClientOriginalExtension();
+            $savePath = public_path('/uploads/bulk/');
+            $file->move($savePath, $fileName);
+
+            // Create equipment data & save
+            // ----------------------------
+            $excel = Importer::make('Excel');
+            $excel->load($savePath . $fileName);
+            $excel->setSheet(1); //for Sheet
+            $collectionItem = $excel->getCollection();
+            dd($collectionItem);
+        }
+    }
 }

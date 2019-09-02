@@ -135,11 +135,92 @@ class AuthController extends ApiBaseController
         return 	$response =  json_decode((string) $response->getBody());
     }
 
-    /*public function currentUser(){
-        $user = Auth::user();
-        if (!$user) {
-            $user = Auth::guard('api')->user();
+    public function sendOTP(){
+
+        $curl = curl_init();
+        $senderID = 'Niktail';
+        $authKey = '274990AwHriyRz75ccbfd12';
+        $mobile = '919953585817';
+        $email = 'ashimwilliam@gmail.com';
+        $otp = rand(1000, 9999);
+        $message = '';
+        $time = time()+5;
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://control.msg91.com/api/sendotp.php?email=&template=&otp=&otp_length=4&otp_expiry=&sender=$senderID&message=$message&mobile=$mobile&authkey=$authKey",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "",
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+        ));
+
+        $response = curl_exec($curl);
+
+        //"{"message":"3969626b3669373939313137","type":"success"}"
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return response()->json([
+                'success' => false,
+                'errors' => 'Invalid Data',
+                'error_message' => $err,
+            ])->setStatusCode(422);
+        } else {
+            return response()->json([
+                'success' => true,
+                'response' => $response,
+            ])->setStatusCode(200);
         }
-        return $user;
-    }*/
+    }
+
+    public function verifyOTP(Request $request){
+        $authKey = '274990AwHriyRz75ccbfd12';
+        $mobile = $request->mobile;
+        $otp = $request->otp;
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://control.msg91.com/api/verifyRequestOTP.php?authkey=$authKey&mobile=$mobile&otp=$otp",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "",
+            CURLOPT_SSL_VERIFYHOST => 0,
+            CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_HTTPHEADER => array(
+                "content-type: application/x-www-form-urlencoded"
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        //dd($response);
+        //"{"message":"otp_verified","type":"success"}"
+
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return response()->json([
+                'success' => false,
+                'errors' => 'Invalid Data',
+                'error_message' => $err,
+            ])->setStatusCode(422);
+        } else {
+            return response()->json([
+                'success' => true,
+                'response' => $response,
+            ])->setStatusCode(200);
+        }
+    }
 }
