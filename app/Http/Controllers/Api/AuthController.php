@@ -243,7 +243,7 @@ class AuthController extends ApiBaseController
                             'message' => 'Your mobile number is already verified.',
                             'errors' => $objRes,
                         ])->setStatusCode(422);
-                    }else if ($objRes->message == 'mobile_not_found') {
+                    }elseif ($objRes->message == 'mobile_not_found') {
                         return response()->json([
                             'success' => false,
                             'message' => 'Your mobile number not found.',
