@@ -143,7 +143,7 @@ class AuthController extends ApiBaseController
             if($user){
                 return response()->json([
                     'success' => false,
-                    'error_message' => 'User already registered.',
+                    'message' => 'User already registered.',
                     'user' => $user,
                 ])->setStatusCode(422);
             } else {
@@ -173,12 +173,13 @@ class AuthController extends ApiBaseController
                 if ($err) {
                     return response()->json([
                         'success' => false,
-                        'error_message' => 'There is some error.',
+                        'message' => 'There is some error.',
                         'errors' => json_decode($err),
                     ])->setStatusCode(422);
                 } else {
                     return response()->json([
                         'success' => true,
+                        'message' => 'Verification code sent successfully.',
                         'response' => json_decode($response),
                     ])->setStatusCode(200);
                 }
@@ -186,7 +187,7 @@ class AuthController extends ApiBaseController
         }else{
             return response()->json([
                 'success' => false,
-                'error_message' => 'Please check mobile number',
+                'message' => 'Please check mobile number',
                 'errors' => '',
             ])->setStatusCode(422);
         }
@@ -230,7 +231,7 @@ class AuthController extends ApiBaseController
                 if ($err) {
                     return response()->json([
                         'success' => false,
-                        'error_message' => 'There is some error.',
+                        'message' => 'There is some error.',
                         'errors' => json_decode($err),
                     ])->setStatusCode(422);
                 } else {
@@ -238,12 +239,13 @@ class AuthController extends ApiBaseController
                     if ($objRes->message == 'already_verified') {
                         return response()->json([
                             'success' => false,
-                            'error_message' => 'You have already verified.',
+                            'message' => 'You have already verified.',
                             'errors' => $objRes,
                         ])->setStatusCode(422);
                     } else {
                         return response()->json([
                             'success' => true,
+                            'message' => 'Code verified successfully.',
                             'response' => $objRes,
                         ])->setStatusCode(200);
                     }
@@ -252,7 +254,7 @@ class AuthController extends ApiBaseController
         }else{
             return response()->json([
                 'success' => false,
-                'error_message' => 'Please check mobile/otp.',
+                'message' => 'Please check mobile/otp.',
                 'errors' => '',
             ])->setStatusCode(422);
         }
