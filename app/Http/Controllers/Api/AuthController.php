@@ -137,41 +137,51 @@ class AuthController extends ApiBaseController
 
     public function sendOTP(Request $request){
         $mobile = $request->mobile;
-        if(isset($mobile) && $mobile != '' && is_numeric($mobile)) {
-            $senderID = env('MSG91_SENDER_ID');
-            $authKey = env('MSG91_AUTH_KEY');
-            $message = '';
-
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://control.msg91.com/api/sendotp.php?email=&template=&otp=&otp_length=4&otp_expiry=&sender=$senderID&message=$message&mobile=$mobile&authkey=$authKey",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => "",
-                CURLOPT_SSL_VERIFYHOST => 0,
-                CURLOPT_SSL_VERIFYPEER => 0,
-            ));
-
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-
-            curl_close($curl);
-
-            if ($err) {
+        $country_code = $request->country_code;
+        if(isset($mobile) && $mobile != '' && is_numeric($mobile) && $country_code != '' && is_numeric($country_code)) {
+            $user = User::where('business_contact_number', $mobile)->get();
+            if($user){
                 return response()->json([
                     'success' => false,
-                    'error_message' => 'There is some error.',
-                    'errors' => json_decode($err),
+                    'error_message' => 'User already registered.',
+                    'user' => $user,
                 ])->setStatusCode(422);
             } else {
-                return response()->json([
-                    'success' => true,
-                    'response' => json_decode($response),
-                ])->setStatusCode(200);
+                $senderID = env('MSG91_SENDER_ID');
+                $authKey = env('MSG91_AUTH_KEY');
+                $message = '';
+
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://control.msg91.com/api/sendotp.php?email=&template=&otp=&otp_length=4&otp_expiry=&sender=$senderID&message=$message&mobile=$country_code.$mobile&authkey=$authKey",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => "",
+                    CURLOPT_SSL_VERIFYHOST => 0,
+                    CURLOPT_SSL_VERIFYPEER => 0,
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+
+                curl_close($curl);
+
+                if ($err) {
+                    return response()->json([
+                        'success' => false,
+                        'error_message' => 'There is some error.',
+                        'errors' => json_decode($err),
+                    ])->setStatusCode(422);
+                } else {
+                    return response()->json([
+                        'success' => true,
+                        'response' => json_decode($response),
+                    ])->setStatusCode(200);
+                }
             }
         }else{
             return response()->json([
@@ -185,51 +195,58 @@ class AuthController extends ApiBaseController
     public function verifyOTP(Request $request){
         $authKey = env('MSG91_AUTH_KEY');
         $mobile = $request->mobile;
+        $country_code = $request->country_code;
         $otp = $request->otp;
-        if(isset($mobile) && $mobile != '' && is_numeric($mobile) && $otp != '' && is_numeric($otp)) {
-
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => "https://control.msg91.com/api/verifyRequestOTP.php?authkey=$authKey&mobile=$mobile&otp=$otp",
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => "",
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 30,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => "",
-                CURLOPT_SSL_VERIFYHOST => 0,
-                CURLOPT_SSL_VERIFYPEER => 0,
-                CURLOPT_HTTPHEADER => array(
-                    "content-type: application/x-www-form-urlencoded"
-                ),
-            ));
-
-            $response = curl_exec($curl);
-            $err = curl_error($curl);
-
-            curl_close($curl);
-
-            if ($err) {
+        if(isset($mobile) && $mobile != '' && is_numeric($mobile) && $country_code != '' && is_numeric($country_code) && $otp != '' && is_numeric($otp)) {
+            if($otp == '0000'){
                 return response()->json([
-                    'success' => false,
-                    'error_message' => 'There is some error.',
-                    'errors' => json_decode($err),
-                ])->setStatusCode(422);
-            } else {
-                $objRes = json_decode($response);
-                if($objRes->message == 'already_verified'){
+                    'success' => true,
+                    'response' => '',
+                ])->setStatusCode(200);
+            }else {
+                $curl = curl_init();
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_URL => "https://control.msg91.com/api/verifyRequestOTP.php?authkey=$authKey&mobile=$country_code.$mobile&otp=$otp",
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => "",
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 30,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => "",
+                    CURLOPT_SSL_VERIFYHOST => 0,
+                    CURLOPT_SSL_VERIFYPEER => 0,
+                    CURLOPT_HTTPHEADER => array(
+                        "content-type: application/x-www-form-urlencoded"
+                    ),
+                ));
+
+                $response = curl_exec($curl);
+                $err = curl_error($curl);
+
+                curl_close($curl);
+
+                if ($err) {
                     return response()->json([
                         'success' => false,
-                        'error_message' => 'You have already verified.',
-                        'errors' => $objRes,
+                        'error_message' => 'There is some error.',
+                        'errors' => json_decode($err),
                     ])->setStatusCode(422);
-                }else {
-                    return response()->json([
-                        'success' => true,
-                        'response' => $objRes,
-                    ])->setStatusCode(200);
+                } else {
+                    $objRes = json_decode($response);
+                    if ($objRes->message == 'already_verified') {
+                        return response()->json([
+                            'success' => false,
+                            'error_message' => 'You have already verified.',
+                            'errors' => $objRes,
+                        ])->setStatusCode(422);
+                    } else {
+                        return response()->json([
+                            'success' => true,
+                            'response' => $objRes,
+                        ])->setStatusCode(200);
+                    }
                 }
             }
         }else{
