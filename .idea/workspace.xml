@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7c0ac59b-a09c-482f-9fb7-3d1715f21604" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/AuthController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -205,7 +206,7 @@
       <workItem from="1567488078185" duration="13000" />
       <workItem from="1567501414680" duration="2879000" />
       <workItem from="1567510114224" duration="625000" />
-      <workItem from="1567512651110" duration="1602000" />
+      <workItem from="1567512651110" duration="1897000" />
     </task>
     <servers />
   </component>

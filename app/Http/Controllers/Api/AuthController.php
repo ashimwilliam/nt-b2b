@@ -240,7 +240,13 @@ class AuthController extends ApiBaseController
                     if ($objRes->message == 'already_verified') {
                         return response()->json([
                             'success' => false,
-                            'message' => 'You have already verified.',
+                            'message' => 'Your mobile number is already verified.',
+                            'errors' => $objRes,
+                        ])->setStatusCode(422);
+                    }else if ($objRes->message == 'mobile_not_found') {
+                        return response()->json([
+                            'success' => false,
+                            'message' => 'Your mobile number not found.',
                             'errors' => $objRes,
                         ])->setStatusCode(422);
                     } else {
