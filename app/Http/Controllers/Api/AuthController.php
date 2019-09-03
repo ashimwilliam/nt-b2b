@@ -202,6 +202,7 @@ class AuthController extends ApiBaseController
             if($otp == '0000'){
                 return response()->json([
                     'success' => true,
+                    'message' => 'Code verified successfully.',
                     'response' => '',
                 ])->setStatusCode(200);
             }else {
