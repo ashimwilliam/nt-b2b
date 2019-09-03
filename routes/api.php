@@ -26,7 +26,7 @@ Route::post('/subcategories', 'Api\ProductController@getSubCategories');
 Route::post('/products-by-category', 'Api\ProductController@getProductsByCategory');
 Route::post('/products-by-subcategory', 'Api\ProductController@getProductsBySubCategory');
 
-Route::get('/send-otp', 'Api\AuthController@sendOTP');
+Route::post('/send-otp', 'Api\AuthController@sendOTP');
 Route::post('/verify-otp', 'Api\AuthController@verifyOTP');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
