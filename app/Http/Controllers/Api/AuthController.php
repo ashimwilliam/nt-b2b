@@ -175,7 +175,7 @@ class AuthController extends ApiBaseController
         } else {
             return response()->json([
                 'success' => true,
-                'response' => $response,
+                'response' => json_decode($response),
             ])->setStatusCode(200);
         }
     }
@@ -219,7 +219,7 @@ class AuthController extends ApiBaseController
         } else {
             return response()->json([
                 'success' => true,
-                'response' => $response,
+                'response' => json_decode($response),
             ])->setStatusCode(200);
         }
     }
