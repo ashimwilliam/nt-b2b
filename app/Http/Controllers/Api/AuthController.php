@@ -13,7 +13,8 @@ class AuthController extends ApiBaseController
 {
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
         ]);
@@ -21,6 +22,7 @@ class AuthController extends ApiBaseController
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
+                'message' => 'Please check the required fields.',
                 'errors' => $validator->errors()
             ])->setStatusCode(422);
         }
@@ -38,6 +40,7 @@ class AuthController extends ApiBaseController
 
         return response()->json([
             'success' => true,
+            'message' => 'User registered successfully.',
             'user' => $user,
             'access_token' => $response->access_token,
             'refresh_token' => $response->refresh_token
@@ -53,6 +56,7 @@ class AuthController extends ApiBaseController
         if($validator->fails()){
             return response()->json([
                 'success' => false,
+                'message' => 'Please check the email/password.',
                 'errors' => $validator->errors()
             ])->setStatusCode(422);
         }
@@ -72,6 +76,7 @@ class AuthController extends ApiBaseController
 
             return response()->json([
                 'success' => true,
+                'message' => 'User logged in successfully.',
                 'user' => $user,
                 'access_token' => $response->access_token,
                 'refresh_token' => $response->refresh_token
@@ -79,7 +84,7 @@ class AuthController extends ApiBaseController
         } else {
             return response()->json([
                 'success' => false,
-                'errors' => 'Unauthorised'
+                'message' => 'Unauthorised'
             ])->setStatusCode(401);
         }
     }
@@ -94,7 +99,7 @@ class AuthController extends ApiBaseController
         //$cuser->AuthAcessToken()->delete(); //where  AauthAcessToken is hasmany //relationship written in User.php to oauth_access_tokens table
         return response()->json([
             'success' => true,
-            'errors' => 'Successfully logged out'
+            'message' => 'Successfully logged out'
         ])->setStatusCode(200);
     }
 
@@ -102,7 +107,8 @@ class AuthController extends ApiBaseController
         if ($request->input('refresh_token') == ""){
             return response()->json([
                 'success' => false,
-                'errors' => 'Please Enter Refresh Token'
+                'message' => 'Please Enter Refresh Token',
+                'errors' => ''
             ])->setStatusCode(422);
         }
 
@@ -116,8 +122,8 @@ class AuthController extends ApiBaseController
         } catch(\Exception $e) {
             return response()->json([
                 'success' => false,
-                'errors' => 'Invalid Data',
-                'error_message' => $e->getMessage(),
+                'message' => 'Invalid Data',
+                'errors' => $e->getMessage(),
             ])->setStatusCode(404);
         }
     }
