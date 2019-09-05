@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Banner;
+use App\Groupcolor;
 use App\Product;
 use Illuminate\Http\Request;
 use Validator;
@@ -43,23 +44,28 @@ class BannerController extends BaseController
     {
         $rules = array(
             'title' => 'required|unique:banners',
+            'slug' => 'required|unique:banners',
             'status' => 'required',
         );
 
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()){
-            return redirect('admin/color/create')
+            return redirect('admin/banner/create')
                 ->withErrors($validator)
                 ->withInput();
         }else{
             // store
             $newRecord = new Banner;
             $newRecord->title = $request->get('title');
+            $newRecord->slug = $request->get('slug');
             $newRecord->description = $request->get('description');
             //$browseField = $request->get('image');
             $newRecord->image = $this->uploadImage($request, 'banner', 'image', '', '');
             $newRecord->status = $request->get('status');
             $newRecord->save();
+
+            $newGC = Banner::find($newRecord->id);
+            $newGC->products()->attach($request->product_id);
 
             // redirect
             Session::flash('success', 'Successfully created the record!');
@@ -105,6 +111,7 @@ class BannerController extends BaseController
         $oldImage = $request->get('old_image');
         $rules = array(
             'title' => 'required|unique:banners,title,'.$id,
+            'slug' => 'required|unique:banners,slug,'.$id,
             'status' => 'required',
         );
         $validator = Validator::make($request->all(), $rules);
@@ -117,12 +124,16 @@ class BannerController extends BaseController
             // store
             $updRecord = Banner::find($id);
             $updRecord->title = $request->get('title');
+            $updRecord->slug = $request->get('slug');
             $updRecord->description = $request->get('description');
             if($request->image) {
                 $updRecord->shade_img = $this->uploadImage($request, 'banner', 'image', $oldImage, '1');
             }
             $updRecord->status = $request->get('status');
             $updRecord->save();
+
+            $updGC = Banner::find($id);
+            $updGC->products()->sync($request->product_id);
 
             // redirect
             Session::flash('success', 'Successfully updated the banner!');

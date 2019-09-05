@@ -8,6 +8,7 @@ use App\Brand;
 use App\Product;
 use App\Category;
 use App\Subcategory;
+use App\Banner;
 
 class ProductController extends ApiBaseController
 {
@@ -16,6 +17,7 @@ class ProductController extends ApiBaseController
 
         return response()->json([
             'success' => true,
+            'message' => '',
             'records' => $brands
         ])->setStatusCode(200);
     }
@@ -27,13 +29,14 @@ class ProductController extends ApiBaseController
 
             return response()->json([
                 'success' => true,
+                'message' => '',
                 'records' => $products
             ])->setStatusCode(200);
         }else{
             return response()->json([
                 'success' => false,
-                'errors' => 'Please check the brand.',
-                'error_message' => ''
+                'message' => 'Please check the brand.',
+                'errors' => ''
             ])->setStatusCode(422);
         }
     }
@@ -43,6 +46,7 @@ class ProductController extends ApiBaseController
 
         return response()->json([
             'success' => true,
+            'message' => '',
             'records' => $categories
         ])->setStatusCode(200);
     }
@@ -54,13 +58,14 @@ class ProductController extends ApiBaseController
 
             return response()->json([
                 'success' => true,
+                'message' => '',
                 'records' => $products
             ])->setStatusCode(200);
         }else{
             return response()->json([
                 'success' => false,
-                'errors' => 'Please check the category.',
-                'error_message' => ''
+                'message' => 'Please check the category.',
+                'errors' => ''
             ])->setStatusCode(422);
         }
     }
@@ -72,13 +77,14 @@ class ProductController extends ApiBaseController
 
             return response()->json([
                 'success' => true,
+                'message' => '',
                 'records' => $subcategories
             ])->setStatusCode(200);
         }else{
             return response()->json([
                 'success' => false,
-                'errors' => 'Please check the category.',
-                'error_message' => ''
+                'message' => 'Please check the category.',
+                'errors' => ''
             ])->setStatusCode(422);
         }
     }
@@ -90,13 +96,73 @@ class ProductController extends ApiBaseController
 
             return response()->json([
                 'success' => true,
+                'message' => '',
                 'records' => $products
             ])->setStatusCode(200);
         }else{
             return response()->json([
                 'success' => false,
-                'errors' => 'Please check the subcategory.',
-                'error_message' => ''
+                'message' => 'Please check the subcategory.',
+                'errors' => ''
+            ])->setStatusCode(422);
+        }
+    }
+
+    public function getAllBanners(){
+        $cuser = $this->currentUser();
+
+        if($cuser) {
+            $records = Banner::select('id', 'title', 'slug', 'image')->where('status', 1)->get();
+            return response()->json([
+                'success' => true,
+                'message' => '',
+                'records' => $records
+            ])->setStatusCode(200);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorised',
+                'errors' => ''
+            ])->setStatusCode(422);
+        }
+    }
+
+    public function getBannerProducts(Request $request, $slug){
+        $cuser = $this->currentUser();
+
+        if($cuser) {
+            if($slug == ''){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please check the slug.',
+                    'errors' => ''
+                ])->setStatusCode(422);
+            }else {
+                $records = Banner::select('id', 'title', 'slug', 'image')->with('products')->where('slug', $slug)->get();
+                if($records) {
+                    /*foreach ($records as $banner){
+                        foreach ($banner->products as $product) {
+                            $product->image_1 = env('APP_URL').'/uploads/product/'.$product->image_1;
+                        }
+                    }*/
+                    return response()->json([
+                        'success' => true,
+                        'message' => '',
+                        'records' => $records
+                    ])->setStatusCode(200);
+                }else{
+                    return response()->json([
+                        'success' => false,
+                        'message' => 'No products are associated with this banner.',
+                        'records' => $records
+                    ])->setStatusCode(422);
+                }
+            }
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorised',
+                'errors' => ''
             ])->setStatusCode(422);
         }
     }

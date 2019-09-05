@@ -33,6 +33,14 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="slug">Slug <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="text" id="slug" name="slug" value="{{ old('slug') }}" class="form-control col-md-7 col-xs-12">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <textarea id="description" name="description" class="form-control" rows="3" placeholder="description">{{ old('description') }}</textarea>
@@ -48,9 +56,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="products">Mapping Products <span class="required">*</span></label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="product_id">Mapping Products <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" id="products" name="products[]" multiple size="10">
+                                        <select class="form-control" id="product_id" name="product_id[]" multiple size="10">
                                             @if(count($products) > 0)
                                                 @foreach($products as $item)
                                                 <option value="{{ $item->id }}">{{ $item->sku_name." (".$item->alias_name.")" }}</option>

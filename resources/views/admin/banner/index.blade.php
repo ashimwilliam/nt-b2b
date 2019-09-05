@@ -24,6 +24,7 @@
                                     <thead>
                                     <tr class="headings">
                                         <th class="column-title">Title</th>
+                                        <th class="column-title">Slug</th>
                                         <th class="column-title">Description</th>
                                         <th class="column-title">Image</th>
                                         <th class="column-title">Status </th>
@@ -37,8 +38,13 @@
                                         @foreach($records as $item)
                                         <tr class="even pointer">
                                             <td class=" ">{{ $item->title }}</td>
+                                            <td class=" ">{{ $item->slug }}</td>
                                             <td class=" ">{{ $item->description }}</td>
-                                            <td class=" ">{{ ($item->image != 0) ? $item->image : "" }}</td>
+                                            <td class=" ">
+                                                @if($item->image != 0)
+                                                    <img src="{{ asset('uploads/banner/'.$item->image) }}" width="100" style="margin-top: 10px;" />
+                                                @endif
+                                            </td>
                                             <td class="a-right a-right ">
                                                 @if($item->status == 1)
                                                     <span class="label label-success">Active</span>
@@ -51,7 +57,7 @@
                                         @endforeach
                                     @else
                                         <tr class="even pointer">
-                                            <td colspan="5">No record found.</td>
+                                            <td colspan="6">No record found.</td>
                                         </tr>
                                     @endif
                                     </tbody>

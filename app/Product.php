@@ -38,4 +38,16 @@ class Product extends Model
     public function prices(){
         return $this->hasMany(Price::class, 'product_id', 'id');
     }
+
+    public function banners(){
+        return $this->belongsToMany(Banner::class)
+            ->withPivot('banner_id')
+            ->withTimestamps();
+    }
+
+    public function getImage1Attribute($value)
+    {
+        return env('APP_URL').'/uploads/product/'.$value;
+    }
+
 }

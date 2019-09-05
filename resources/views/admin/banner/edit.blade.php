@@ -25,62 +25,70 @@
                             {!! Form::open(array('url' => URL::to('admin/banner/'.$record->id), 'method' => 'PUT', 'class'=>"form-horizontal form-label-left",'id'=>'frmEditBanner','files'=> true,'autocomplete'=>false)) !!}
 
                             <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title <span class="required">*</span>
-                                    </label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="text" id="title" name="title" value="{{ $record->title }}" class="form-control col-md-7 col-xs-12">
-                                    </div>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">Title <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="title" name="title" value="{{ $record->title }}" class="form-control col-md-7 col-xs-12">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <textarea id="description" name="description" class="form-control" rows="3" placeholder="description">{{ $record->description }}</textarea>
-                                    </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="slug">Slug <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" id="slug" name="slug" value="{{ $record->slug }}" class="form-control col-md-7 col-xs-12">
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Image</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input type="file" name="image" id="image" value="{{ $record->image }}" class="form-control col-md-7 col-xs-12" />
-                                        @if($record->image != 0)
-                                        <img src="{{ asset('uploads/banner/'.$record->image) }}" width="100" style="margin-top: 10px;" />
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="description">Description</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <textarea id="description" name="description" class="form-control" rows="3" placeholder="description">{{ $record->description }}</textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Image</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="file" name="image" id="image" value="{{ $record->image }}" class="form-control col-md-7 col-xs-12" />
+                                    @if($record->image != 0)
+                                    <img src="{{ asset('uploads/banner/'.$record->image) }}" width="100" style="margin-top: 10px;" />
+                                    @endif
+                                    <input type="hidden" name="old_image" value="{{ $record->image }}" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="product_id">Mapping Products <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" id="product_id" name="product_id[]" multiple size="10">
+                                        @if(count($products) > 0)
+                                            @foreach($products as $item)
+                                                <option value="{{ $item->id }}">{{ $item->sku_name." (".$item->alias_name.")" }}</option>
+                                            @endforeach
                                         @endif
-                                        <input type="hidden" name="old_image" value="{{ $record->image }}" />
-                                    </div>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="products">Mapping Products <span class="required">*</span></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" id="products" name="products[]" multiple size="10">
-                                            @if(count($products) > 0)
-                                                @foreach($products as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->sku_name." (".$item->alias_name.")" }}</option>
-                                                @endforeach
-                                            @endif
-                                        </select>
-                                    </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">Status <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" id="status" name="status">
+                                        <option value="1" @if($record->status == 1) selected="selected" @endif>Active</option>
+                                        <option value="0" @if($record->status == 0) selected="selected" @endif>In-Active</option>
+                                    </select>
                                 </div>
+                            </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">Status <span class="required">*</span></label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="1" @if($record->status == 1) selected="selected" @endif>Active</option>
-                                            <option value="0" @if($record->status == 0) selected="selected" @endif>In-Active</option>
-                                        </select>
-                                    </div>
+                            <div class="ln_solid"></div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">&nbsp;</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
-
-                                <div class="ln_solid"></div>
-
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">&nbsp;</label>
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                    </div>
-                                </div>
+                            </div>
 
                             {!! Form::close() !!}
                         </div>
