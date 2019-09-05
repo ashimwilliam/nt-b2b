@@ -127,7 +127,7 @@ class BannerController extends BaseController
             $updRecord->slug = $request->get('slug');
             $updRecord->description = $request->get('description');
             if($request->image) {
-                $updRecord->shade_img = $this->uploadImage($request, 'banner', 'image', $oldImage, '1');
+                $updRecord->image = $this->uploadImage($request, 'banner', 'image', $oldImage, '1');
             }
             $updRecord->status = $request->get('status');
             $updRecord->save();

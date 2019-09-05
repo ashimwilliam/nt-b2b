@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7c0ac59b-a09c-482f-9fb7-3d1715f21604" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Banner.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Banner.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BannerController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BannerController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_02_085327_create_banners_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_02_085327_create_banners_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/banner/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/banner/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/banner/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/banner/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/banner/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/banner/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -215,7 +207,7 @@
       <workItem from="1567501414680" duration="2879000" />
       <workItem from="1567510114224" duration="625000" />
       <workItem from="1567512651110" duration="4706000" />
-      <workItem from="1567671576420" duration="6839000" />
+      <workItem from="1567671576420" duration="8180000" />
     </task>
     <servers />
   </component>
