@@ -30,6 +30,10 @@ Route::post('/send-otp', 'Api\AuthController@sendOTP');
 Route::post('/verify-otp', 'Api\AuthController@verifyOTP');
 Route::get('/get-banners', 'Api\ProductController@getAllBanners');
 Route::get('/banner-products/{slug}', 'Api\ProductController@getBannerProducts');
+Route::get('/product-details/{id}', 'Api\ProductController@getProductDetails');
+
+Route::get('/faq', 'Api\ProductController@getFaqs');
+Route::get('/support', 'Api\ProductController@getSupport');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
