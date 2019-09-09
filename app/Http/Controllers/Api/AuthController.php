@@ -145,7 +145,7 @@ class AuthController extends ApiBaseController
         $mobile = $request->mobile;
         $country_code = $request->country_code;
         if(isset($mobile) && $mobile != '' && is_numeric($mobile) && $country_code != '' && is_numeric($country_code)) {
-            $user = User::where('business_contact_number', $mobile)->get();
+            $user = User::where('business_contact_number', $mobile)->get()->first();
             if($user){
                 return response()->json([
                     'success' => false,
