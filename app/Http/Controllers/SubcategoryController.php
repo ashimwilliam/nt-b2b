@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Session;
 
-class SubcategoryController extends Controller
+class SubcategoryController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -57,6 +57,7 @@ class SubcategoryController extends Controller
             $newRecord->category_id = $request->get('category_id');
             $newRecord->title = $request->get('title');
             $newRecord->description = $request->get('description');
+            $newRecord->image = $this->uploadImage($request, 'subcategory', 'image', '', '');
             $newRecord->slug = $this->createSlug($request->get('title'));
             $newRecord->status = $request->get('status');
             $newRecord->save();
@@ -102,6 +103,7 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $oldImage = $request->get('old_image');
         $rules = array(
             'category_id' => 'required',
             'title' => 'required|unique:subcategories,title,'.$id,
@@ -118,6 +120,9 @@ class SubcategoryController extends Controller
             $updRecord->category_id = $request->get('category_id');
             $updRecord->title = $request->get('title');
             $updRecord->description = $request->get('description');
+            if($request->image) {
+                $updRecord->image = $this->uploadImage($request, 'subcategory', 'image', $oldImage, '1');
+            }
             $updRecord->slug = $this->createSlug($request->get('title'));
             $updRecord->status = $request->get('status');
             $updRecord->save();

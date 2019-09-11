@@ -3,9 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="7c0ac59b-a09c-482f-9fb7-3d1715f21604" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_09_111004_create_carts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_09_111004_create_carts_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Brand.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Brand.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BrandController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BrandController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SubcategoryController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SubcategoryController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Subcategory.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Subcategory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/brand/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/brand/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/brand/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/brand/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/brand/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/brand/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/category/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/category/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/category/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/category/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/category/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/category/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/color/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/color/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/subcategory/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/subcategory/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/subcategory/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/subcategory/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/subcategory/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/subcategory/index.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -214,7 +227,7 @@
       <workItem from="1568006667817" duration="9101000" />
       <workItem from="1568099382184" duration="1798000" />
       <workItem from="1568175327424" duration="79000" />
-      <workItem from="1568191283677" duration="1952000" />
+      <workItem from="1568191283677" duration="5978000" />
     </task>
     <servers />
   </component>

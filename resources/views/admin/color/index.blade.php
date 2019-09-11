@@ -39,7 +39,11 @@
                                         <tr class="even pointer">
                                             <td class=" ">{{ $item->title }}</td>
                                             <td class=" ">{{ $item->description }}</td>
-                                            <td class=" ">{{ ($item->shade_img != 0) ? $item->shade_img : "" }}</td>
+                                            <td class=" ">
+                                                @if($item->shade_img != 0)
+                                                    <img src="{{ asset('uploads/color/'.$item->shade_img) }}" width="50" style="" />
+                                                @endif
+                                            </td>
                                             <td class=" ">{{ $item->color_code }}</td>
                                             <td class="a-right a-right ">
                                                 @if($item->status == 1)

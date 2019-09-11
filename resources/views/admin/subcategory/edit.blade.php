@@ -54,6 +54,17 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="image">Image</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <input type="file" name="image" id="image" value="{{ $record->image }}" class="form-control col-md-7 col-xs-12" />
+                                        @if($record->image != 0)
+                                            <img src="{{ asset('uploads/subcategory/'.$record->image) }}" width="100" style="margin-top: 10px;" />
+                                        @endif
+                                        <input type="hidden" name="old_image" value="{{ $record->image }}" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">Status <span class="required">*</span></label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select class="form-control" id="status" name="status">

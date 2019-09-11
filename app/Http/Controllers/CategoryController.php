@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Session;
 
-class CategoryController extends Controller
+class CategoryController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -53,6 +53,7 @@ class CategoryController extends Controller
             $newRecord = new Category;
             $newRecord->title = $request->get('title');
             $newRecord->description = $request->get('description');
+            $newRecord->image = $this->uploadImage($request, 'category', 'image', '', '');
             $newRecord->slug = $this->createSlug($request->get('title'));
             $newRecord->status = $request->get('status');
             $newRecord->save();
@@ -97,6 +98,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $oldImage = $request->get('old_image');
         $rules = array(
             'title' => 'required|unique:categories,title,'.$id,
             'status' => 'required',
@@ -111,6 +113,9 @@ class CategoryController extends Controller
             $updRecord = Category::find($id);
             $updRecord->title = $request->get('title');
             $updRecord->description = $request->get('description');
+            if($request->image) {
+                $updRecord->image = $this->uploadImage($request, 'category', 'image', $oldImage, '1');
+            }
             $updRecord->slug = $this->createSlug($request->get('title'));
             $updRecord->status = $request->get('status');
             $updRecord->save();

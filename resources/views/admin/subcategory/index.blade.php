@@ -26,6 +26,7 @@
                                         <th class="column-title">Sub Category</th>
                                         <th class="column-title">Category</th>
                                         <th class="column-title">Description</th>
+                                        <th class="column-title">Image</th>
                                         <th class="column-title">Slug</th>
                                         <th class="column-title">Status </th>
                                         <th class="column-title no-link last"><span class="nobr">Action</span>
@@ -40,6 +41,11 @@
                                             <td class=" ">{{ $item->title }}</td>
                                             <td class=" ">{{ (isset($item->category) ? $item->category->title : "") }}</td>
                                             <td class=" ">{{ $item->description }}</td>
+                                            <td class=" ">
+                                                @if($item->image != 0)
+                                                    <img src="{{ asset('uploads/subcategory/'.$item->image) }}" width="50" style="" />
+                                                @endif
+                                            </td>
                                             <td class=" ">{{ $item->slug }}</td>
                                             <td class="a-right a-right ">
                                                 @if($item->status == 1)
@@ -53,7 +59,7 @@
                                         @endforeach
                                     @else
                                         <tr class="even pointer">
-                                            <td colspan="6">No record found.</td>
+                                            <td colspan="7">No record found.</td>
                                         </tr>
                                     @endif
                                     </tbody>

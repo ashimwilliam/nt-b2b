@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Session;
 
-class BrandController extends Controller
+class BrandController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -53,6 +53,7 @@ class BrandController extends Controller
             $newRecord = new Brand;
             $newRecord->title = $request->get('title');
             $newRecord->description = $request->get('description');
+            $newRecord->image = $this->uploadImage($request, 'brand', 'image', '', '');
             $newRecord->slug = $this->createSlug($request->get('title'));
             $newRecord->status = $request->get('status');
             $newRecord->save();
@@ -97,6 +98,7 @@ class BrandController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $oldImage = $request->get('old_image');
         $rules = array(
             'title' => 'required|unique:brands,title,'.$id,
             'status' => 'required',
@@ -111,6 +113,9 @@ class BrandController extends Controller
             $updRecord = Brand::find($id);
             $updRecord->title = $request->get('title');
             $updRecord->description = $request->get('description');
+            if($request->image) {
+                $updRecord->image = $this->uploadImage($request, 'brand', 'image', $oldImage, '1');
+            }
             $updRecord->slug = $this->createSlug($request->get('title'));
             $updRecord->status = $request->get('status');
             $updRecord->save();
