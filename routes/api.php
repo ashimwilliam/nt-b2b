@@ -34,6 +34,7 @@ Route::get('/product-details/{id}', 'Api\ProductController@getProductDetails');
 
 Route::get('/faq', 'Api\ProductController@getFaqs');
 Route::get('/support', 'Api\ProductController@getSupport');
+Route::post('/search-products', 'Api\ProductController@searchProducts');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

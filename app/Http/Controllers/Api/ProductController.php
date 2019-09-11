@@ -255,4 +255,37 @@ There are many variations of passages of Lorem Ipsum available, but the majority
             ])->setStatusCode(422);
         }
     }
+
+    public function searchProducts(Request $request){
+        $cuser = $this->currentUser();
+
+        if($cuser) {
+            $term = $request->term;
+            if(isset($term) && $term != ''){
+                $records = Product::where('status', 1)
+                    ->where(function($q)use($term) {
+                        $q->orWhere('sku_name', 'LIKE', '%'.$term.'%')
+                            ->orWhere("alias_name", "LIKE", "%$term%");
+                    })->paginate(8);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => '',
+                    'records' => $records
+                ])->setStatusCode(200);
+            }else{
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Search term not found.',
+                    'errors' => ''
+                ])->setStatusCode(422);
+            }
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorised',
+                'errors' => ''
+            ])->setStatusCode(422);
+        }
+    }
 }

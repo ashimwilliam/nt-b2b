@@ -17,7 +17,7 @@ class CreateCartsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('groupcolor_id')->default(0);
+            $table->unsignedBigInteger('groupcolor_id');
             $table->smallInteger('quantity')->default(0);
             $table->decimal('price', 10,2)->default(0.00);
             $table->decimal('subtotal', 10,2)->default(0.00);

@@ -4,6 +4,7 @@
     <list default="true" id="7c0ac59b-a09c-482f-9fb7-3d1715f21604" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Api/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_09_111004_create_carts_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_09_111004_create_carts_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -211,6 +212,9 @@
       <workItem from="1567671576420" duration="8780000" />
       <workItem from="1567776104511" duration="1524000" />
       <workItem from="1568006667817" duration="9101000" />
+      <workItem from="1568099382184" duration="1798000" />
+      <workItem from="1568175327424" duration="79000" />
+      <workItem from="1568191283677" duration="1952000" />
     </task>
     <servers />
   </component>
